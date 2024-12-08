@@ -1,9 +1,23 @@
-{
-  "messages": [
-    "message 1",
-    "message 2",
-    "message 3",
-    "message 4",
-    "message 5"
-  ]
-}
+[
+    {
+        "subject": "Truite de compagnie à vendre",
+        "body": "Contactez-moi au plus vite et évitez, à partir d'aujourd'hui, les caractères spéciaux tels que : ééààèèüüääöö!!££$$¨^^@##|¬&, merci d'avance"
+
+    },
+    {
+        "subject": "TU as besoin d'argent et TU peux en GAGNER",
+        "body": "Oui, toi! Oui tu veux de l'argent! Alors participe et clique sur ce lien."
+    },
+    {
+        "subject": "Passez vos vacances à Disney",
+        "body": "Seulement $$$ par nuit. Profitez!"
+    },
+    {
+        "subject": "I don't know you, but I want to meet you",
+        "body": "I definitely am not some sort of scam. Source: trust me bro"
+    },
+    {
+        "subject": "Free money",
+        "body": "To get free money, click on the money logo up there /|\\"
+    }
+]
