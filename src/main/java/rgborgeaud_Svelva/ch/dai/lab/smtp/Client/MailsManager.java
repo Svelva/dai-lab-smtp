@@ -46,6 +46,12 @@ public class MailsManager {
       // Extract the emails from the file
       final JSONObject emailsData = parseFileToObj(emailsFile);
       this.emails = emailsData.getJSONArray("emails");
+      // Integrity check on emails
+      for (Object email : this.emails) {
+        if (!(email instanceof String) || !((String) email).contains("@") || !((String) email).contains(".") || ((String) email).isBlank()) {
+          throw new RuntimeException("Wrong email found in emailsFile : " + email);
+        }
+      }
       this.nbGroups = emailsData.getInt("nbGroups");
       // Integrity check on groups count
       if (this.nbGroups < 1) {
