@@ -12,6 +12,8 @@ public class Client {
     static final String MAIL_DEV_HOST = "localhost";
 
     public static void main(String[] args) {
+        // Instantiate message and mails manager
+        final MailsManager mailsManager = new MailsManager(null, null);
 
         try (Socket socket = new Socket(MAIL_DEV_HOST, MAIL_DEV_PORT);
              BufferedReader in = new BufferedReader(
@@ -19,15 +21,8 @@ public class Client {
              BufferedWriter out = new BufferedWriter(
                      new OutputStreamWriter(socket.getOutputStream(), UTF_8))
         ) {
-
-            String sender = "gael.borgeaud@gmail.com";
-            String[] recipients = {"mylene.farmer@baguette.fr", "johnny.hallyday@pinard.com", "roger.federer@fondue.ch",};
-            String subjet = "Truite de compagnie à vendre";
-            String text = "Contactez-moi au plus vite et évitez, à partir d'aujourd'hui, les caractères spéciaux " +
-                    "tels que : ééààèèüüääöö!!££$$¨^^@##|¬&, merci d'avance";
-
-            var smtpMessages = new SMTPMessagesHandler(sender, recipients, subjet, text);
-            var smtpConnection = new SMTPConnectionHandler(in, out, smtpMessages);
+            SMTPMessagesHandler smtpMessages = new SMTPMessagesHandler(mailsManager);
+            SMTPConnectionHandler smtpConnection = new SMTPConnectionHandler(in, out, smtpMessages);
 
             smtpConnection.handle();
 

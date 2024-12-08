@@ -55,8 +55,6 @@ public class SMTPConnectionHandler {
      * @throws IOException on checkResponse()
      */
     private void greetingsManagement() throws IOException {
-        checkResponse(SERVICE_READY, "Service not ready");
-
         sendMessage(SMTPMessages.writeGreetings());
         checkResponse(REQUESTED_ACTION_OK, "Server refused EHLO");
 
@@ -134,14 +132,15 @@ public class SMTPConnectionHandler {
      * @throws IOException if server fails at any point, or when read()/write() fails
      */
     public void handle() throws IOException {
-
-        greetingsManagement();
-        readOptions();
-        setSender();
-        setRecipient();
-        setData();
+        checkResponse(SERVICE_READY, "Service not ready");
+        while (this.SMTPMessages.prepareNext()) {
+            greetingsManagement();
+            readOptions();
+            setSender();
+            setRecipient();
+            setData();
+        }
         quit();
     }
-
 }
 

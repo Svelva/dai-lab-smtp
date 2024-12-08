@@ -1,7 +1,13 @@
 {
-  "mails": [
-    "mail.one",
-    "mail.two",
-    "mail.three"
-  ]
+    "emails" : [
+        "mylene.farmer@baguette.fr",
+        "johnny.hallyday@pinard.com",
+        "roger.federer@fondue.ch",
+        "merry.christmas@santa.net",
+        "hellothere@generalkenobi.com",
+        "real.shakira@music.mus",
+        "whatCanI.sayExcept@youreWel.com",
+        "creativity.is@hard.originalmail"
+    ],
+    "nbGroups": 5
 }

@@ -3,20 +3,22 @@ package rgborgeaud_Svelva.ch.dai.lab.smtp.Client;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class handles the creation of SMTP messages used to send emails through a TCP connection.
  * It is used to create all required commands (mail from, rcpt to, data) for one email with one or multiple recipients
  * Email addresses format should be checked before being passed to the class
- *
  * The whole class uses UTF-8 encoding whenever necessary
  */
 public class SMTPMessagesHandler {
 
-    private final String sender;
-    private final String[] recipients;
-    private final String subject;
-    private final String text;
+    private String sender;
+    private String[] recipients;
+    private String subject;
+    private String text;
+
+    private final MailsManager mailsManager;
 
     //SMTP uses \r\n as EOL
     static final String EOL = "\r\n";
@@ -30,16 +32,27 @@ public class SMTPMessagesHandler {
 
     /**
      *
-     * @param sender the sender from which the fake email is sent
-     * @param recipients list of recipients
-     * @param subject subject of the email
-     * @param text main text of the email
+     * @param mailsManager the class handling the data from the config files
      */
-    public SMTPMessagesHandler(String sender, String[] recipients, String subject, String text) {
-        this.sender = sender;
-        this.recipients = recipients;
-        this.subject = subject;
-        this.text = text;
+    public SMTPMessagesHandler(MailsManager mailsManager) {
+        this.mailsManager = mailsManager;
+    }
+
+    public boolean prepareNext() {
+        if (this.mailsManager.noGroupLeft()) {
+            return false;
+        }
+        // Get a random group & message
+        final List<String> nextGroup = mailsManager.getRandomGroup();
+        final List<String> nextMsg = mailsManager.getRandomMessage();
+
+        // Fill in the data
+        this.sender = nextGroup.getFirst();
+        this.recipients = nextGroup.subList(1, nextGroup.size()).toArray(new String[nextGroup.size() - 1]);
+        this.subject = nextMsg.getFirst();
+        this.text = nextMsg.getLast();
+
+        return true;
     }
 
     /**
