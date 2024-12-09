@@ -39,7 +39,7 @@ although we do not recommend using this program with a real SMTP server.
 
 ### Mock server configuration
 
-We recommend using the docker [Maildev](https://github.com/maildev/maildev) docker image.
+We recommend using the [Maildev](https://github.com/maildev/maildev) docker image.
 Once it is installed, simply run 
 
     docker run -d -p 1080:1080 -p 1025:1025 maildev/maildev
